@@ -1,33 +1,31 @@
+@import url('https://fonts.googleapis.com/css2?family=Gelasio:ital,wght@0,400..700;1,400..700&family=Inter:wght@100..900&display=swap');
+@import '@flaticon/flaticon-uicons/css/all/all';
+@import './editor-theme.css';
+@import 'react-toastify/dist/ReactToastify.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+@layer components {
+  .shape {
+    @apply w-[200px] h-[200px] rounded-full absolute;
   }
-}
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
-}
+  .shape-1 {
+    background: linear-gradient(#1845ad, #23a2f6);
+    @apply left-0 top-0 md:left-[-80px];
+  }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
+  .shape-2 {
+    background: linear-gradient(to right, #ff512f, #f09819);
+    @apply right-0 bottom-0 md:right-[-40px] lg:right-[-80px];
+  }
+
+  .form-auth {
+    background-color: rgba(255, 255, 255, 0.13);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
+    @apply relative z-10 rounded-xl backdrop-blur-[10px] px-[20px] py-[30px];
   }
 }

@@ -9,18 +9,40 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@editorjs/checklist": "^1.6.0",
+    "@editorjs/code": "^2.9.0",
+    "@editorjs/editorjs": "^2.29.1",
+    "@editorjs/embed": "^2.7.1",
+    "@editorjs/header": "^2.8.1",
+    "@editorjs/image": "^2.9.0",
+    "@editorjs/link": "^2.6.2",
+    "@editorjs/list": "^1.9.0",
+    "@editorjs/paragraph": "^2.11.4",
+    "@editorjs/quote": "^2.6.0",
+    "@editorjs/raw": "^2.5.0",
+    "@editorjs/simple-image": "^1.6.0",
+    "@flaticon/flaticon-uicons": "^3.2.1",
+    "@reduxjs/toolkit": "^2.2.3",
+    "axios": "^1.6.8",
+    "formik": "^2.4.5",
+    "framer-motion": "^11.1.1",
+    "next": "14.2.1",
+    "next-client-cookies": "^1.1.1",
     "react": "^18",
     "react-dom": "^18",
-    "next": "14.2.1"
+    "react-redux": "^9.1.1",
+    "react-toastify": "^10.0.5",
+    "yup": "^1.4.0"
   },
   "devDependencies": {
-    "typescript": "^5",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "eslint": "^8",
+    "eslint-config-next": "14.2.1",
     "postcss": "^8",
     "tailwindcss": "^3.4.1",
-    "eslint": "^8",
-    "eslint-config-next": "14.2.1"
+    "tw-colors": "^3.3.1",
+    "typescript": "^5"
   }
 }
