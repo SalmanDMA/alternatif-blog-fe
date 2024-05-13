@@ -1,4 +1,4 @@
-<h1 align="center" style="font-size: 32px; font-weight: 800;"> Alternatif Api </h1> <br>
+<h1 align="center" style="font-size: 32px; font-weight: 800;"> Alternatif Web </h1> <br>
 <p align="center">
   <a href="https://alternatif.com/">
     <img alt="GitPoint" title="GitPoint" src="https://res.cloudinary.com/dnrhctazp/image/upload/v1713146476/c5dmuzyrcomjw6cnyuan.png" style="width: 150px; border-radius: 50%;">
@@ -75,6 +75,7 @@ Here are some features of Alternatif API:
 - Framer
 - Formik & Yup (Validation Form)
 - Tailwind Css
+- Redux (State Management)
 
 ## Installation
 
