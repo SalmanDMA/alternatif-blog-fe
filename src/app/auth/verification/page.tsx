@@ -2,7 +2,7 @@
 import axios from 'axios';
 import { useCookies } from 'next-client-cookies';
 import Link from 'next/link';
-import { useSearchParams, useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 

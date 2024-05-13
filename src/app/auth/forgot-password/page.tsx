@@ -79,14 +79,16 @@ const ForgotPassword = () => {
     <main className='bg-gray-300 h-screen flex justify-center items-center max-w-[1440px] mx-auto'>
       <form onSubmit={isValidEmail ? formikPassword.handleSubmit : formikEmail.handleSubmit} className='form-auth'>
         <h1 className='text-3xl font-bold mb-4 text-center font-inter'>Forgot Password</h1>
-        <Image
-          src={'/images/forgot-password.svg'}
-          width={300}
-          height={300}
-          className='mb-4 w-auto h-auto'
-          alt='forgot password'
-          priority
-        />
+        <div className='flex justify-center w-[300px] h-[300px] mx-auto'>
+          <Image
+            src={'/images/forgot-password.svg'}
+            width={300}
+            height={300}
+            className='mb-4 w-full h-full object-contain'
+            alt='forgot password'
+            priority
+          />
+        </div>
         <p className='mb-4 font-gelasio'>
           {isValidEmail ? 'Enter your new password' : 'Enter your email address to reset your password'}
         </p>

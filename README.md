@@ -1,4 +1,4 @@
-<h1 align="center" style="font-size: 32px; font-weight: 800;"> Alternatif Api </h1> <br>
+<h1 align="center" style="font-size: 32px; font-weight: 800;"> Alternatif Web </h1> <br>
 <p align="center">
   <a href="https://alternatif.com/">
     <img alt="GitPoint" title="GitPoint" src="https://res.cloudinary.com/dnrhctazp/image/upload/v1713146476/c5dmuzyrcomjw6cnyuan.png" style="width: 150px; border-radius: 50%;">
@@ -56,11 +56,11 @@
 [![On Process](https://img.shields.io/badge/build-on_process-blue)](https://github.com/SalmanDMA/alternatif-blog-api)
 [![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
 
-Welcome to Alternatif API! This is a website where you can showcase all of your creations. It's a fun and exciting platform where you can learn and grow together. Feel free to share your work and explore what others have to offer.
+Welcome to Alternatif WEB! This is a website where you can showcase all of your creations. It's a fun and exciting platform where you can learn and grow together. Feel free to share your work and explore what others have to offer.
 
 ## Features
 
-Here are some features of Alternatif API:
+Here are some features of Alternatif WEB:
 
 - Showcase your work and projects ( cooming soon )
 - Learn from other creators
@@ -75,6 +75,7 @@ Here are some features of Alternatif API:
 - Framer
 - Formik & Yup (Validation Form)
 - Tailwind Css
+- Redux (State Management)
 
 ## Installation
 

@@ -1,10 +1,10 @@
 'use client';
 import Image from 'next/image';
-import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import AnimationWrapper from './AnimationWrapper';
 import { useFormik } from 'formik';
 import { authInputData } from '@/utils/inputData';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
 interface IProps {

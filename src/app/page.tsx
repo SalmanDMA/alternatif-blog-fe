@@ -1,14 +1,10 @@
-'use client';
-import { toast } from 'react-toastify';
-
+import Navbar from '@/components/Navbar';
 export default function Home() {
-  const notify = () => toast.success('Wow so easy !');
+
   return (
-    <main>
-      <div>
-        <h1 className='font-gelasio text-black'>Home</h1>
-        <button onClick={notify}>Notify !</button>
-      </div>
+    <main className='bg-gray-100 h-screen flex justify-center items-center max-w-[1440px] mx-auto'>
+      <Navbar 
+      />
     </main>
   );
 }
