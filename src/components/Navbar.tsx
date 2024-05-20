@@ -10,8 +10,9 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
 import Modal from './Modal';
 import { setTheme } from '@/store/slice/themeSlice';
+import handleToggle from '@/utils/general';
 
-const Navbar = () => {
+const Navbar = ({ handleToggleSidebar }: { handleToggleSidebar: () => void }) => {
   const cookies = useCookies();
   const intl = useIntl();
   const [showDropdown, setShowDropdown] = useState<Record<number, boolean>>({});
@@ -29,35 +30,16 @@ const Navbar = () => {
   const [isOpenSearchBox, setIsOpenSearchBox] = useState<boolean>(false);
   const [animationSearchBox, setAnimationSearchBox] = useState<boolean>(false);
 
-  const handleToggleDropdown = ({
-    isOpen,
-    setState,
-    setAnimation,
-  }: {
-    isOpen: boolean;
-    setState: React.Dispatch<React.SetStateAction<boolean>>;
-    setAnimation: React.Dispatch<React.SetStateAction<boolean>>;
-  }) => {
-    if (isOpen) {
-      setAnimation(false);
-      setTimeout(() => {
-        setState(false);
-      }, 300);
-    } else {
-      setState(true);
-      setTimeout(() => {
-        setAnimation(true);
-      }, 300);
-    }
-  };
-
   const currentLocale = useSelector((state: RootState) => state.language.language);
   const theme = useSelector((state: RootState) => state.theme.theme);
   const dispatch = useDispatch();
 
   return (
-    <nav className='bg-white fixed top-0 left-0 flex gap-16 items-center w-full p-4 shadow-lg'>
-      <div className='w-[20%]'>
+    <nav className='bg-white fixed top-0 left-0 flex gap-16 items-center justify-between w-full p-4 shadow-lg'>
+      <div className='flex items-center gap-4'>
+        <button type='button' className='lg:hidden' onClick={handleToggleSidebar}>
+          <i className='fi fi-br-menu-burger text-xl'></i>
+        </button>
         <Link href={'/'} className='w-[60px] h-[60px] flex items-center gap-2'>
           <Image
             src={'/images/logo.png'}
@@ -67,62 +49,62 @@ const Navbar = () => {
             className='w-full h-full rounded-full'
             priority
           />
-          <h1 className='text-2xl font-inter'>Alternatif</h1>
+          <h1 className='text-2xl font-inter hidden md:block'>Alternatif</h1>
         </Link>
       </div>
-      <div className='flex items-center justify-between w-[80%]'>
-        <div className='flex items-center gap-4'>
-          {navbarData.map((item) => (
-            <div key={item.id}>
-              <button
-                type='button'
-                className='flex gap-1 items-center text-lg font-inter capitalize'
+      <div className='hidden lg:flex items-center gap-4'>
+        {navbarData.map((item) => (
+          <div key={item.id}>
+            <button
+              type='button'
+              className='flex gap-1 items-center text-lg font-inter capitalize'
+              onMouseEnter={() => showDropdownOnHover(item.id)}
+              onMouseLeave={hideDropdownOnLeave}
+            >
+              <FormattedMessage id={item.name} />
+              <i
+                className={`fi fi-tr-angle-small-down flex justify-center items-center text-xl transition-transform duration-300 transform ${
+                  showDropdown[item.id] ? 'rotate-180' : 'rotate-0'
+                }`}
+              ></i>
+            </button>
+            {showDropdown[item.id] && (
+              <div
+                className='absolute top-[88px] left-0 mt-1 w-full bg-gray-300 shadow-lg before:absolute before:left-1/2 before:-top-[2.5rem] before:transform before:-translate-x-1/2 before:bg-transparent before:h-10 before:w-full p-8'
                 onMouseEnter={() => showDropdownOnHover(item.id)}
                 onMouseLeave={hideDropdownOnLeave}
               >
-                <FormattedMessage id={item.name} />
-                <i
-                  className={`fi fi-tr-angle-small-down flex justify-center items-center text-xl transition-transform duration-300 transform ${
-                    showDropdown[item.id] ? 'rotate-180' : 'rotate-0'
-                  }`}
-                ></i>
-              </button>
-              {showDropdown[item.id] && (
-                <div
-                  className='absolute top-[88px] left-0 mt-1 w-full bg-gray-300 shadow-lg before:absolute before:left-1/2 before:-top-[2.5rem] before:transform before:-translate-x-1/2 before:bg-transparent before:h-10 before:w-full p-8'
-                  onMouseEnter={() => showDropdownOnHover(item.id)}
-                  onMouseLeave={hideDropdownOnLeave}
-                >
-                  <h1 className='text-4xl font-inter font-bold border-b pb-2 border-black'>
-                    {<FormattedMessage id={item.dropdownContent?.title} />}
-                  </h1>
-                  <div className='grid grid-cols-2 gap-4 py-8'>
-                    {item.dropdownContent?.content.map((content) => (
-                      <Link href={content.path} className='flex items-center gap-2' key={content.id}>
-                        <div className='flex-none flex justify-center items-center rounded-full bg-white p-4 h-16 w-16'>
-                          <i className={`fi ${content.icon} flex justify-center items-center text-3xl`}></i>
-                        </div>
-                        <div className='flex flex-col gap-1'>
-                          <h3 className='text-xl font-medium font-inter'>{content.name}</h3>
-                          <p className='font-gelasio text-gray-600'>{content.des}</p>
-                        </div>
-                      </Link>
-                    ))}
-                  </div>
+                <h1 className='text-4xl font-inter font-bold border-b pb-2 border-black'>
+                  {<FormattedMessage id={item.dropdownContent?.title} />}
+                </h1>
+                <div className='grid grid-cols-2 gap-4 py-8'>
+                  {item.dropdownContent?.content.map((content) => (
+                    <Link href={content.path} className='flex items-center gap-2' key={content.id}>
+                      <div className='flex-none flex justify-center items-center rounded-full bg-white p-4 h-16 w-16'>
+                        <i className={`fi ${content.icon} flex justify-center items-center text-3xl`}></i>
+                      </div>
+                      <div className='flex flex-col gap-1'>
+                        <h3 className='text-xl font-medium font-inter'>{content.name}</h3>
+                        <p className='font-gelasio text-gray-600'>{content.des}</p>
+                      </div>
+                    </Link>
+                  ))}
                 </div>
-              )}
-            </div>
-          ))}
-          <Link href={'/contact'} className='text-lg font-inter'>
-            <FormattedMessage id='contact' />
-          </Link>
-        </div>
-        <div className='flex items-center gap-4'>
+              </div>
+            )}
+          </div>
+        ))}
+        <Link href={'/contact'} className='text-lg font-inter'>
+          <FormattedMessage id='contact' />
+        </Link>
+      </div>
+      <div className='flex items-center justify-between'>
+        <div className='flex items-center md:gap-4'>
           <button
             type='button'
             className='focus:outline-none flex justify-center items-center'
             onClick={() => {
-              handleToggleDropdown({
+              handleToggle({
                 isOpen: isOpenSearchBox,
                 setState: setIsOpenSearchBox,
                 setAnimation: setAnimationSearchBox,
@@ -144,7 +126,7 @@ const Navbar = () => {
             <Modal
               isAnimation={animationSearchBox}
               onClose={() => {
-                handleToggleDropdown({
+                handleToggle({
                   isOpen: isOpenSearchBox,
                   setState: setIsOpenSearchBox,
                   setAnimation: setAnimationSearchBox,
@@ -163,7 +145,7 @@ const Navbar = () => {
                 </div>
               }
               footer={
-                <div className='flex gap-4 items-center'>
+                <div className='flex flex-wrap gap-2 sm:gap-4 items-center justify-center sm:justify-start'>
                   <div className='flex gap-2 items-center'>
                     <div className='size-4 rounded-full bg-sky-500'></div>
                     <p className='text-lg font-gelasio'>
@@ -201,13 +183,13 @@ const Navbar = () => {
 
           <Link
             href={'/auth/signin'}
-            className='text-lg font-inter border border-sky-500 rounded-lg px-4 py-2 hover:shadow-md transition-all duration-300'
+            className='text-lg font-inter border border-sky-500 rounded-lg px-4 py-2 hover:shadow-md transition-all duration-300 hidden md:block'
           >
             <FormattedMessage id='sign_in' />
           </Link>
           <Link
             href={'/auth/signup'}
-            className='text-lg font-inter bg-sky-500 text-white transition-all duration-300 hover:shadow-md px-4 py-2 rounded-lg'
+            className='text-lg font-inter bg-sky-500 text-white transition-all duration-300 hover:shadow-md px-4 py-2 rounded-lg hidden md:block'
           >
             <FormattedMessage id='sign_up' />
           </Link>
@@ -216,7 +198,7 @@ const Navbar = () => {
               type='button'
               className='focus:outline-none flex justify-center items-center'
               onClick={() => {
-                handleToggleDropdown({
+                handleToggle({
                   isOpen: isOpenDropdown,
                   setState: setIsOpenDropdown,
                   setAnimation: setAnimationDropdown,

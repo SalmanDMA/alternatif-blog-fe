@@ -5,16 +5,21 @@ import { RootState } from '@/store';
 import { setLanguage } from '@/store/slice/languageSlice';
 import { setTheme } from '@/store/slice/themeSlice';
 import { useCookies } from 'next-client-cookies';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { IntlProvider } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
 import { Slide, ToastContainer } from 'react-toastify';
+import Sidebar from './Sidebar';
+import Navbar from './Navbar';
+import { usePathname, useRouter } from 'next/navigation';
+import handleToggle from '@/utils/general';
 
 const AppShell = ({ children }: { children: React.ReactNode }) => {
   const cookies = useCookies();
   const theme = useSelector((state: RootState) => state.theme.theme);
   const dispatch = useDispatch();
   const currentLocale = useSelector((state: RootState) => state.language.language);
+  const pathName = usePathname();
 
   useEffect(() => {
     const themeInSession = cookies.get('theme') as 'light' | 'dark';
@@ -31,6 +36,9 @@ const AppShell = ({ children }: { children: React.ReactNode }) => {
     }
   }, []);
 
+  const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
+  const [animationSidebar, setAnimationSidebar] = useState<boolean>(false);
+
   return (
     <html lang='en'>
       <body>
@@ -39,9 +47,31 @@ const AppShell = ({ children }: { children: React.ReactNode }) => {
           locale={currentLocale}
           defaultLocale={LOCALES.ENGLISH}
         >
+          {!pathName.startsWith('auth') && (
+            <Navbar
+              handleToggleSidebar={() => {
+                handleToggle({
+                  isOpen: isSidebarOpen,
+                  setState: setIsSidebarOpen,
+                  setAnimation: setAnimationSidebar,
+                });
+              }}
+            />
+          )}
+          {!pathName.startsWith('auth') && isSidebarOpen && (
+            <Sidebar
+              isAnimation={animationSidebar}
+              onClose={() => {
+                handleToggle({
+                  isOpen: isSidebarOpen,
+                  setState: setIsSidebarOpen,
+                  setAnimation: setAnimationSidebar,
+                });
+              }}
+            />
+          )}
           {children}
         </IntlProvider>
-        x
         <ToastContainer
           position='top-right'
           autoClose={3000}

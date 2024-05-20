@@ -61,7 +61,7 @@ const SignUpComponent = () => {
       <div className='shape shape-1'></div>
       <div className='shape shape-2'></div>
       <FormAuth
-        title='Sign Up'
+        title='Sign Up to Alternatif'
         btnName='Register'
         styleReverse={true}
         authImageSrc='/images/signup.svg'

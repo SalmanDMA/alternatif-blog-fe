@@ -23,7 +23,7 @@ const Modal: React.FC<ModalProps> = ({ onClose, isAnimation, children, header, f
       }}
     >
       <div
-        className={`absolute left-0 w-full h-full flex justify-center items-center transition-all duration-300 p-8 cursor-pointer ${
+        className={`absolute left-0 w-full h-full flex justify-center items-center transition-all duration-300 p-4 sm:p-8 cursor-pointer ${
           isAnimation ? 'opacity-100 top-0' : 'opacity-0 top-[50%]'
         }`}
         id='modalContainer'

@@ -5,8 +5,8 @@ import ProviderShell from '@/components/ProviderShell';
 import { CookiesProvider } from 'next-client-cookies/server';
 
 export const metadata: Metadata = {
-  title: 'Alternatif Blog',
-  description: 'Alternatif Blog',
+  title: 'Alternatif',
+  description: 'Alternatif',
 };
 
 export default function RootLayout({
@@ -17,7 +17,7 @@ export default function RootLayout({
 }>) {
   return (
     <CookiesProvider>
-      <ProviderShell children={children}  />
+      <ProviderShell children={children} />
     </CookiesProvider>
   );
 }
