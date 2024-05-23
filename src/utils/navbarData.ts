@@ -1,5 +1,3 @@
-import { LOCALES } from '@/i18n/locales';
-
 interface IDropDownContentData {
   id: number;
   name: string;
@@ -79,8 +77,8 @@ const navbarData: INavbarData[] = [
 ];
 
 const languages: ILanguage[] = [
-  { name: 'English', code: LOCALES.ENGLISH, image: '/images/uk.png', key: 'en' },
-  { name: 'Bahasa Indonesia', code: LOCALES.INDONESIA, image: '/images/id.png', key: 'id' },
+  { name: 'English', code: 'en', image: '/images/uk.png', key: 'en' },
+  { name: 'Bahasa Indonesia', code: 'id', image: '/images/id.png', key: 'id' },
 ];
 
 export { navbarData, languages };

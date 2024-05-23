@@ -1,24 +1,20 @@
 'use client';
-import { LOCALES } from '@/i18n/locales';
-import { messages } from '@/i18n/messages';
 import { RootState } from '@/store';
 import { setLanguage } from '@/store/slice/languageSlice';
 import { setTheme } from '@/store/slice/themeSlice';
 import { useCookies } from 'next-client-cookies';
 import { useEffect, useState } from 'react';
-import { IntlProvider } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
 import { Slide, ToastContainer } from 'react-toastify';
 import Sidebar from './Sidebar';
 import Navbar from './Navbar';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import handleToggle from '@/utils/general';
 
 const AppShell = ({ children }: { children: React.ReactNode }) => {
   const cookies = useCookies();
   const theme = useSelector((state: RootState) => state.theme.theme);
   const dispatch = useDispatch();
-  const currentLocale = useSelector((state: RootState) => state.language.language);
   const pathName = usePathname();
 
   useEffect(() => {
@@ -40,53 +36,45 @@ const AppShell = ({ children }: { children: React.ReactNode }) => {
   const [animationSidebar, setAnimationSidebar] = useState<boolean>(false);
 
   return (
-    <html lang='en'>
-      <body>
-        <IntlProvider
-          messages={currentLocale === 'en' ? messages[LOCALES.ENGLISH] : (messages[LOCALES.INDONESIA] as any)}
-          locale={currentLocale}
-          defaultLocale={LOCALES.ENGLISH}
-        >
-          {!pathName.startsWith('auth') && (
-            <Navbar
-              handleToggleSidebar={() => {
-                handleToggle({
-                  isOpen: isSidebarOpen,
-                  setState: setIsSidebarOpen,
-                  setAnimation: setAnimationSidebar,
-                });
-              }}
-            />
-          )}
-          {!pathName.startsWith('auth') && isSidebarOpen && (
-            <Sidebar
-              isAnimation={animationSidebar}
-              onClose={() => {
-                handleToggle({
-                  isOpen: isSidebarOpen,
-                  setState: setIsSidebarOpen,
-                  setAnimation: setAnimationSidebar,
-                });
-              }}
-            />
-          )}
-          {children}
-        </IntlProvider>
-        <ToastContainer
-          position='top-right'
-          autoClose={3000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-          theme={theme === 'light' ? 'light' : 'dark'}
-          transition={Slide}
+    <>
+      {!pathName.startsWith('auth') && (
+        <Navbar
+          handleToggleSidebar={() => {
+            handleToggle({
+              isOpen: isSidebarOpen,
+              setState: setIsSidebarOpen,
+              setAnimation: setAnimationSidebar,
+            });
+          }}
         />
-      </body>
-    </html>
+      )}
+      {!pathName.startsWith('auth') && isSidebarOpen && (
+        <Sidebar
+          isAnimation={animationSidebar}
+          onClose={() => {
+            handleToggle({
+              isOpen: isSidebarOpen,
+              setState: setIsSidebarOpen,
+              setAnimation: setAnimationSidebar,
+            });
+          }}
+        />
+      )}
+      {children}
+      <ToastContainer
+        position='top-right'
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme={theme === 'light' ? 'light' : 'dark'}
+        transition={Slide}
+      />
+    </>
   );
 };
 

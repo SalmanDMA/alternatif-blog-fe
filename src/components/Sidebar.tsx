@@ -1,9 +1,9 @@
 'use client';
 import { navbarData } from '@/utils/navbarData';
+import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
-import { FormattedMessage } from 'react-intl';
 
 interface SidebarProps {
   isAnimation: boolean;
@@ -12,6 +12,7 @@ interface SidebarProps {
 
 const Sidebar = ({ onClose, isAnimation }: SidebarProps) => {
   const [showDropdown, setShowDropdown] = useState<Record<number, boolean>>({});
+  const t = useTranslations('navbar');
 
   const showDropdownOnHover = (dropdownIndex: number) => {
     setShowDropdown({ ...showDropdown, [dropdownIndex]: true });
@@ -64,7 +65,7 @@ const Sidebar = ({ onClose, isAnimation }: SidebarProps) => {
                   onMouseEnter={() => showDropdownOnHover(item.id)}
                   onMouseLeave={hideDropdownOnLeave}
                 >
-                  <FormattedMessage id={item.name} />
+                  {t(item.name)}
                   <i
                     className={`fi fi-tr-angle-small-down flex justify-center items-center text-xl transition-transform duration-300 transform ${
                       showDropdown[item.id] ? 'rotate-180' : 'rotate-0'
@@ -78,7 +79,7 @@ const Sidebar = ({ onClose, isAnimation }: SidebarProps) => {
                     onMouseLeave={hideDropdownOnLeave}
                   >
                     <h1 className='text-4xl font-inter font-bold border-b pb-2 border-black'>
-                      {<FormattedMessage id={item.dropdownContent?.title} />}
+                      {t(item.dropdownContent?.title)}
                     </h1>
                     <div className='grid grid-cols-2 gap-4 py-8'>
                       {item.dropdownContent?.content.map((content) => (
@@ -98,7 +99,7 @@ const Sidebar = ({ onClose, isAnimation }: SidebarProps) => {
               </div>
             ))}
             <Link href={'/contact'} className='text-lg font-inter'>
-              <FormattedMessage id='contact' />
+              {t('contact')}
             </Link>
           </div>
           <div className='flex flex-col gap-2 md:hidden border-t border-gray-300 pt-4'>
@@ -106,13 +107,13 @@ const Sidebar = ({ onClose, isAnimation }: SidebarProps) => {
               href={'/auth/signin'}
               className='text-lg font-inter border border-sky-500 rounded-lg px-4 py-2 hover:shadow-md transition-all duration-300 flex justify-center items-center'
             >
-              <FormattedMessage id='sign_in' />
+              {t('sign_in')}
             </Link>
             <Link
               href={'/auth/signup'}
               className='text-lg font-inter bg-sky-500 text-white transition-all duration-300 hover:shadow-md px-4 py-2 rounded-lg flex justify-center items-center'
             >
-              <FormattedMessage id='sign_up' />
+              {t('sign_up')}
             </Link>
           </div>
         </div>

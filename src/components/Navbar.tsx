@@ -6,16 +6,18 @@ import { useCookies } from 'next-client-cookies';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
-import { FormattedMessage, useIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
 import Modal from './Modal';
 import { setTheme } from '@/store/slice/themeSlice';
 import handleToggle from '@/utils/general';
+import { useTranslations } from 'next-intl';
+import { useRouter } from 'next/navigation';
 
 const Navbar = ({ handleToggleSidebar }: { handleToggleSidebar: () => void }) => {
   const cookies = useCookies();
-  const intl = useIntl();
+  const t = useTranslations('navbar');
   const [showDropdown, setShowDropdown] = useState<Record<number, boolean>>({});
+  const router = useRouter();
 
   const showDropdownOnHover = (dropdownIndex: number) => {
     setShowDropdown({ ...showDropdown, [dropdownIndex]: true });
@@ -61,7 +63,7 @@ const Navbar = ({ handleToggleSidebar }: { handleToggleSidebar: () => void }) =>
               onMouseEnter={() => showDropdownOnHover(item.id)}
               onMouseLeave={hideDropdownOnLeave}
             >
-              <FormattedMessage id={item.name} />
+              <p>{t(item.name)}</p>
               <i
                 className={`fi fi-tr-angle-small-down flex justify-center items-center text-xl transition-transform duration-300 transform ${
                   showDropdown[item.id] ? 'rotate-180' : 'rotate-0'
@@ -75,7 +77,7 @@ const Navbar = ({ handleToggleSidebar }: { handleToggleSidebar: () => void }) =>
                 onMouseLeave={hideDropdownOnLeave}
               >
                 <h1 className='text-4xl font-inter font-bold border-b pb-2 border-black'>
-                  {<FormattedMessage id={item.dropdownContent?.title} />}
+                  {t(item.dropdownContent?.title)}
                 </h1>
                 <div className='grid grid-cols-2 gap-4 py-8'>
                   {item.dropdownContent?.content.map((content) => (
@@ -84,8 +86,8 @@ const Navbar = ({ handleToggleSidebar }: { handleToggleSidebar: () => void }) =>
                         <i className={`fi ${content.icon} flex justify-center items-center text-3xl`}></i>
                       </div>
                       <div className='flex flex-col gap-1'>
-                        <h3 className='text-xl font-medium font-inter'>{content.name}</h3>
-                        <p className='font-gelasio text-gray-600'>{content.des}</p>
+                        <h3 className='text-xl font-medium font-inter'>{t(content?.name)}</h3>
+                        <p className='font-gelasio text-gray-600'>{t(content?.des)}</p>
                       </div>
                     </Link>
                   ))}
@@ -95,7 +97,7 @@ const Navbar = ({ handleToggleSidebar }: { handleToggleSidebar: () => void }) =>
           </div>
         ))}
         <Link href={'/contact'} className='text-lg font-inter'>
-          <FormattedMessage id='contact' />
+          <p>{t('contact')}</p>
         </Link>
       </div>
       <div className='flex items-center justify-between'>
@@ -139,36 +141,26 @@ const Navbar = ({ handleToggleSidebar }: { handleToggleSidebar: () => void }) =>
               header={
                 <div className='flex gap-2 items-center'>
                   <i className={`fi fi-rr-search flex justify-center items-center text-2xl`}></i>
-                  <h2 className='text-lg font-inter font-bold'>
-                    <FormattedMessage id='search' />
-                  </h2>
+                  <h2 className='text-lg font-inter font-bold'>{t('search')}</h2>
                 </div>
               }
               footer={
                 <div className='flex flex-wrap gap-2 sm:gap-4 items-center justify-center sm:justify-start'>
                   <div className='flex gap-2 items-center'>
                     <div className='size-4 rounded-full bg-sky-500'></div>
-                    <p className='text-lg font-gelasio'>
-                      <FormattedMessage id='tutorials' />
-                    </p>
+                    <p className='text-lg font-gelasio'>{t('tutorials')}</p>
                   </div>
                   <div className='flex gap-2 items-center'>
                     <div className='size-4 rounded-full bg-red-500'></div>
-                    <p className='text-lg font-gelasio'>
-                      <FormattedMessage id='articles' />
-                    </p>
+                    <p className='text-lg font-gelasio'>{t('articles')}</p>
                   </div>
                   <div className='flex gap-2 items-center'>
                     <div className='size-4 rounded-full bg-green-500'></div>
-                    <p className='text-lg font-gelasio'>
-                      <FormattedMessage id='open_source' />
-                    </p>
+                    <p className='text-lg font-gelasio'>{t('open_source')}</p>
                   </div>
                   <div className='flex gap-2 items-center'>
                     <div className='size-4 rounded-full bg-yellow-500'></div>
-                    <p className='text-lg font-gelasio'>
-                      <FormattedMessage id='course' />
-                    </p>
+                    <p className='text-lg font-gelasio'>{t('course')}</p>
                   </div>
                 </div>
               }
@@ -176,7 +168,7 @@ const Navbar = ({ handleToggleSidebar }: { handleToggleSidebar: () => void }) =>
               <input
                 type='text'
                 className='w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500'
-                placeholder={intl.formatMessage({ id: 'placeholder_search' })}
+                placeholder={t('placeholder_search')}
               />
             </Modal>
           )}
@@ -185,13 +177,13 @@ const Navbar = ({ handleToggleSidebar }: { handleToggleSidebar: () => void }) =>
             href={'/auth/signin'}
             className='text-lg font-inter border border-sky-500 rounded-lg px-4 py-2 hover:shadow-md transition-all duration-300 hidden md:block'
           >
-            <FormattedMessage id='sign_in' />
+            {t('sign_in')}
           </Link>
           <Link
             href={'/auth/signup'}
             className='text-lg font-inter bg-sky-500 text-white transition-all duration-300 hover:shadow-md px-4 py-2 rounded-lg hidden md:block'
           >
-            <FormattedMessage id='sign_up' />
+            {t('sign_up')}
           </Link>
           <div className='relative'>
             <button
@@ -222,9 +214,7 @@ const Navbar = ({ handleToggleSidebar }: { handleToggleSidebar: () => void }) =>
                 }`}
               >
                 <div className='flex flex-col gap-4 border-b-2 border-b-gray-200 pb-4'>
-                  <p className='text-lg font-inter text-gray-400'>
-                    <FormattedMessage id='theme' />
-                  </p>
+                  <p className='text-lg font-inter text-gray-400'>{t('theme')}</p>
                   <div className='relative'>
                     <input
                       type='checkbox'
@@ -257,15 +247,13 @@ const Navbar = ({ handleToggleSidebar }: { handleToggleSidebar: () => void }) =>
                         </div>
                       </div>
                       <span className='ml-5 font-medium'>
-                        {theme === 'dark' ? <FormattedMessage id='dark_mode' /> : <FormattedMessage id='light_mode' />}
+                        {theme === 'dark' ? <>{t('dark_mode')}</> : <>{t('light_mode')}</>}
                       </span>
                     </label>
                   </div>
                 </div>
                 <div className='flex flex-col gap-4 pt-4'>
-                  <p className='text-lg font-inter text-gray-400'>
-                    <FormattedMessage id='language' />
-                  </p>
+                  <p className='text-lg font-inter text-gray-400'>{t('language')}</p>
                   <div className='flex flex-col gap-2'>
                     {languages.map((language, index) => (
                       <div
@@ -276,6 +264,7 @@ const Navbar = ({ handleToggleSidebar }: { handleToggleSidebar: () => void }) =>
                         onClick={() => {
                           dispatch(setLanguage(language.key));
                           cookies.set('language', language.key);
+                          router.refresh();
                         }}
                       >
                         <div className='flex items-center gap-2'>
