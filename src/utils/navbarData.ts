@@ -1,29 +1,4 @@
-interface IDropDownContentData {
-  id: number;
-  name: string;
-  path: string;
-  des: string;
-  icon: string;
-}
-
-interface IDropdownContent {
-  id: number;
-  title: string;
-  content: IDropDownContentData[];
-}
-
-interface INavbarData {
-  id: number;
-  name: string;
-  dropdownContent: IDropdownContent | null;
-}
-
-interface ILanguage {
-  name: string;
-  code: string;
-  image: string;
-  key: 'en' | 'id';
-}
+import { ILanguage, INavbarData } from '@/types/common';
 
 const navbarData: INavbarData[] = [
   {
@@ -35,30 +10,30 @@ const navbarData: INavbarData[] = [
       content: [
         {
           id: 1,
-          name: 'dropdown_content_article',
+          name: 'dropdown_subtitle_article',
           path: '/article',
-          des: 'des_article',
+          des: 'dropwdown_description_article',
           icon: 'fi-rr-newspaper',
         },
         {
           id: 2,
-          name: 'dropdown_content_tutorial',
+          name: 'dropdown_subtitle_tutorial',
           path: '/tutorial',
-          des: 'des_tutorial',
+          des: 'dropwdown_description_tutorial',
           icon: 'fi-sr-rectangle-list',
         },
         {
           id: 3,
-          name: 'dropdown_content_open_source',
+          name: 'dropdown_subtitle_open_source',
           path: '/open-source',
-          des: 'des_open_source',
+          des: 'dropwdown_description_open_source',
           icon: 'fi-ss-book-open-reader',
         },
         {
           id: 4,
-          name: 'dropdown_content_course',
+          name: 'dropdown_subtitle_course',
           path: '/course',
-          des: 'des_course',
+          des: 'dropwdown_description_course',
           icon: 'fi-ss-e-learning',
         },
       ],
@@ -67,12 +42,64 @@ const navbarData: INavbarData[] = [
   {
     id: 2,
     name: 'category',
-    dropdownContent: null,
+    dropdownContent: {
+      id: 1,
+      title: 'dropdown_title_category',
+      content: [
+        {
+          id: 1,
+          name: 'dropdown_subtitle_react',
+          path: '/category/react',
+          des: 'dropwdown_description_react',
+          icon: 'fi-ss-react',
+        },
+        {
+          id: 2,
+          name: 'dropdown_subtitle_vue',
+          path: '/category/vue',
+          des: 'dropwdown_description_vue',
+          icon: 'fi-sr-rectangle-list',
+        },
+        {
+          id: 3,
+          name: 'dropdown_subtitle_next_js',
+          path: '/category/next-js',
+          des: 'dropwdown_description_next_js',
+          icon: 'fi-ss-book-open-reader',
+        },
+        {
+          id: 4,
+          name: 'dropdown_subtitle_nuxt_js',
+          path: '/category/nuxt-js',
+          des: 'dropwdown_description_nuxt_js',
+          icon: 'fi-ss-e-learning',
+        },
+      ],
+    },
   },
   {
     id: 3,
     name: 'explore',
-    dropdownContent: null,
+    dropdownContent: {
+      id: 1,
+      title: 'dropdown_title_explore',
+      content: [
+        {
+          id: 1,
+          name: 'dropdown_subtitle_discussion',
+          path: '/discussion',
+          des: 'dropwdown_description_discussion',
+          icon: 'fi-ss-react',
+        },
+        {
+          id: 2,
+          name: 'dropdown_subtitle_showcase',
+          path: '/showcase',
+          des: 'dropwdown_description_showcase',
+          icon: 'fi-sr-rectangle-list',
+        },
+      ],
+    },
   },
 ];
 

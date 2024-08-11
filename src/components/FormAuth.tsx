@@ -66,9 +66,9 @@ const FormAuth = ({
       <form className='form-auth' onSubmit={formik.handleSubmit}>
         <Link href='/' className='flex items-center gap-2 absolute top-5 left-5 group'>
           <i className='fi fi-br-arrow-left flex justify-center items-center'></i>
-          <span className='text-sm group-hover:underline font-gelasio'>Back</span>
+          <span className='text-sm group-hover:underline font-gelasio'>Back to Home</span>
         </Link>
-        <h1 className='font-inter font-bold text-black text-3xl text-center mb-10'>{title}</h1>
+        <h1 className='font-inter font-bold text-black text-3xl text-center mb-10 mt-4 sm:mt-0'>{title}</h1>
         <div className={`block md:flex md:items-center md:gap-10 ${styleReverse ? 'md:flex-row-reverse' : ''}`}>
           <div className='flex flex-col gap-4 min-w-[250px]'>
             {filteredInputData.map((data) => (

@@ -10,6 +10,9 @@ import Sidebar from './Sidebar';
 import Navbar from './Navbar';
 import { usePathname } from 'next/navigation';
 import handleToggle from '@/utils/general';
+import 'swiper/css';
+import 'swiper/css/pagination';
+import 'swiper/css/navigation';
 
 const AppShell = ({ children }: { children: React.ReactNode }) => {
   const cookies = useCookies();
@@ -37,7 +40,7 @@ const AppShell = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <>
-      {!pathName.startsWith('auth') && (
+      {!pathName.startsWith('/auth') && (
         <Navbar
           handleToggleSidebar={() => {
             handleToggle({
@@ -48,7 +51,7 @@ const AppShell = ({ children }: { children: React.ReactNode }) => {
           }}
         />
       )}
-      {!pathName.startsWith('auth') && isSidebarOpen && (
+      {!pathName.startsWith('/auth') && isSidebarOpen && (
         <Sidebar
           isAnimation={animationSidebar}
           onClose={() => {
