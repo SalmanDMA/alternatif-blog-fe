@@ -2,37 +2,42 @@ import { useState, useEffect } from 'react';
 
 const useWindowSizeAndScroll = () => {
   const [windowSize, setWindowSize] = useState({
-    width: window.innerWidth,
-    height: window.innerHeight,
+    width: 0,
+    height: 0,
   });
 
   const [scrollPosition, setScrollPosition] = useState({
-    scrollX: window.scrollX,
-    scrollY: window.scrollY,
+    scrollX: 0,
+    scrollY: 0,
   });
 
   useEffect(() => {
-    const handleResize = () => {
-      setWindowSize({
-        width: window.innerWidth,
-        height: window.innerHeight,
-      });
-    };
+    if (typeof window !== 'undefined') {
+      const handleResize = () => {
+        setWindowSize({
+          width: window.innerWidth,
+          height: window.innerHeight,
+        });
+      };
 
-    const handleScroll = () => {
-      setScrollPosition({
-        scrollX: window.scrollX,
-        scrollY: window.scrollY,
-      });
-    };
+      const handleScroll = () => {
+        setScrollPosition({
+          scrollX: window.scrollX,
+          scrollY: window.scrollY,
+        });
+      };
 
-    window.addEventListener('resize', handleResize);
-    window.addEventListener('scroll', handleScroll);
+      handleResize();
+      handleScroll();
 
-    return () => {
-      window.removeEventListener('resize', handleResize);
-      window.removeEventListener('scroll', handleScroll);
-    };
+      window.addEventListener('resize', handleResize);
+      window.addEventListener('scroll', handleScroll);
+
+      return () => {
+        window.removeEventListener('resize', handleResize);
+        window.removeEventListener('scroll', handleScroll);
+      };
+    }
   }, []);
 
   return { windowSize, scrollPosition };
