@@ -8,7 +8,7 @@ import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import { useRef, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Pagination, Navigation } from 'swiper/modules';
+import { Navigation, Autoplay } from 'swiper/modules';
 import Link from 'next/link';
 
 const Home = () => {
@@ -111,6 +111,51 @@ const Home = () => {
       description: 'Get inspired with our creative tutorials.',
       image: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c',
       link: '/tutorials',
+    },
+  ];
+
+  const courses = [
+    { id: 1, title: 'Belajar Membangun LINE Chatbot', image: '/course-image-1.jpg' },
+    { id: 2, title: 'Belajar Membangun LINE Front-end Framework (LIFF)', image: '/course-image-2.jpg' },
+    { id: 3, title: 'Memulai Dasar Pemrograman untuk Menjadi Pengembang Software', image: '/course-image-3.jpg' },
+    { id: 4, title: 'Simulasi Ujian Associate Cloud Engineer', image: '/course-image-4.jpg' },
+    { id: 5, title: 'Belajar Fundamental Aplikasi Android', image: '/course-image-5.jpg' },
+    { id: 6, title: 'Belajar Pengembangan Web dengan ReactJS', image: '/course-image-6.jpg' },
+    { id: 7, title: 'Belajar Dasar Pemrograman JavaScript', image: '/course-image-7.jpg' },
+    { id: 8, title: 'Belajar Membuat Aplikasi Back-end dengan Node.js', image: '/course-image-8.jpg' },
+    { id: 9, title: 'Menjadi Front-End Web Developer Expert', image: '/course-image-9.jpg' },
+    { id: 10, title: 'Belajar Pengembangan Machine Learning', image: '/course-image-10.jpg' },
+  ];
+
+  const pairedCourses = [];
+  for (let i = 0; i < courses.length; i += 2) {
+    pairedCourses.push([courses[i], courses[i + 1]]);
+  }
+
+  const testimonials = [
+    {
+      name: 'John Doe',
+      title: 'Chief Digital Officer',
+      message:
+        'Vivamus sit amet interdum elit. Proin lacinia erat ac velit tempus auctor. Interdum et malesuada fames ac ante ipsum primis in faucibus. Aliquam nec ex aliquet, aliquam neque non.',
+    },
+    {
+      name: 'Jean Doe',
+      title: 'Chief Digital Officer',
+      message:
+        'Vestibulum sit amet tortor sit amet libero lobortis semper at et odio. In eu tellus tellus. Pellentesque ullamcorper aliquet ultrices. Aenean facilisis vitae purus facilisis semper.',
+    },
+    {
+      name: 'Jane Doe',
+      title: 'Chief Digital Officer',
+      message:
+        'Vestibulum sit amet tortor sit amet libero lobortis semper at et odio. In eu tellus tellus. Pellentesque ullamcorper aliquet ultrices. Aenean facilisis vitae purus facilisis semper.',
+    },
+    {
+      name: 'John Doe',
+      title: 'Chief Digital Officer',
+      message:
+        'Vestibulum sit amet tortor sit amet libero lobortis semper at et odio. In eu tellus tellus. Pellentesque ullamcorper aliquet ultrices. Aenean facilisis vitae purus facilisis semper.',
     },
   ];
 
@@ -672,22 +717,164 @@ const Home = () => {
         </div>
       </section>
 
-      <section
-        className={`max-w-[1440px] mx-auto bg-[#F1DEC6] w-full min-h-[300px] md:min-h-[400px] xl:min-h-[500px] flex items-center sm:my-16`}
-      >
-        <div className='grid grid-cols-1 md:grid-cols-2'>
-          <div className='p-8'>
-            <h3 className='text-3xl font-bold text-center sm:text-start'>Learn anywhere and anytime</h3>
-            <p className='text-lg text-center sm:text-start'>
+      <section className='max-w-[1440px] mx-auto bg-[#14182B] text-white w-full min-h-[300px] md:min-h-[400px] xl:min-h-[500px] flex items-center sm:my-16'>
+        <div className='grid grid-cols-1 lg:grid-cols-2'>
+          <div className='p-8 flex flex-col gap-4 items-center lg:items-start justify-center'>
+            <h3 className='text-3xl font-bold text-center lg:text-start'>Learn anywhere and anytime</h3>
+            <p className='text-lg text-center lg:text-start'>
               Learning in Alternatives is suitable for anyone who wants to start programming or is already a
               professional.
             </p>
-            <button className='flex justify-center items-center gap-2 rounded-lg px-4 py-2.5 text-lg sm:text-xl font-bold'>
+            <button className='flex justify-center items-center gap-2 rounded-lg px-4 py-2.5 text-lg lg:text-xl font-bold max-w-max'>
               See all learning
               <i className='fi fi-rr-arrow-right flex items-center justify-center'></i>
             </button>
           </div>
-          <div></div>
+
+          <div className='p-8'>
+            <Swiper
+              modules={[Autoplay]}
+              autoplay={{ delay: 0, disableOnInteraction: false }}
+              speed={3000}
+              loop={true}
+              className='mySwiper'
+              style={{ height: '400px' }}
+              spaceBetween={20}
+              breakpoints={{
+                1023: {
+                  direction: 'horizontal',
+                  slidesPerView: 2,
+                  spaceBetween: 20,
+                },
+                1024: {
+                  direction: 'vertical',
+                  slidesPerView: 2,
+                  spaceBetween: 40,
+                },
+              }}
+            >
+              {pairedCourses.map((pair, index) => (
+                <SwiperSlide key={index} className='flex flex-col'>
+                  <div className='flex flex-col lg:flex-row gap-4'>
+                    {pair.map(
+                      (course) =>
+                        course && (
+                          <div key={course.id} className='flex-1'>
+                            <div
+                              className={`bg-white text-black rounded-lg overflow-hidden shadow-lg flex flex-col justify-start flex-grow max-h-[200px]`}
+                            >
+                              <img
+                                src={course.image}
+                                alt={`Course Image ${course.id}`}
+                                className='w-full h-32 object-cover'
+                              />
+                              <div className='p-4'>
+                                <h4 className='text-xl font-bold'>{course.title}</h4>
+                              </div>
+                            </div>
+                          </div>
+                        )
+                    )}
+                  </div>
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          </div>
+        </div>
+      </section>
+
+      <section className='max-w-[1440px] mx-auto sm:my-16 px-8'>
+        <div className='text-center mb-8'>
+          <h2 className='text-4xl font-bold before:bg-orange-200 text-black'>Testimonials</h2>
+          <p className='text-lg text-black'>Their opinion is our strength</p>
+        </div>
+
+        <Swiper
+          modules={[Navigation, Autoplay]}
+          autoplay={{ delay: 3000, disableOnInteraction: false }}
+          speed={1000}
+          loop={true}
+          navigation={true}
+          className='mySwiper custom-swiper'
+          style={{ padding: '20px 0' }}
+          slidesPerView={1}
+          spaceBetween={10}
+          breakpoints={{
+            640: {
+              slidesPerView: 1,
+              spaceBetween: 20,
+            },
+            768: {
+              slidesPerView: 2,
+              spaceBetween: 30,
+            },
+          }}
+        >
+          {testimonials.map((testimonial, index) => (
+            <SwiperSlide key={index} className='flex justify-center'>
+              <div className='bg-white p-6 rounded-lg shadow-lg w-full text-left'>
+                <div className='flex items-start mb-4'>
+                  <div className='bg-teal-500 p-2 rounded-full text-white'>
+                    <svg
+                      xmlns='http://www.w3.org/2000/svg'
+                      fill='none'
+                      viewBox='0 0 24 24'
+                      strokeWidth={1.5}
+                      stroke='currentColor'
+                      className='w-6 h-6'
+                    >
+                      <path
+                        strokeLinecap='round'
+                        strokeLinejoin='round'
+                        d='M17.25 6.75h-2.883a2.25 2.25 0 00-2.25 2.25v10.5m4.5-7.5h2.883a2.25 2.25 0 002.25-2.25V2.25M6.75 17.25h-2.883a2.25 2.25 0 01-2.25-2.25V2.25m4.5 9.75H6.75'
+                      />
+                    </svg>
+                  </div>
+                  <p className='ml-4 text-gray-700'>{testimonial.message}</p>
+                </div>
+                <h4 className='text-lg font-bold'>{testimonial.name}</h4>
+                <p className='text-sm text-gray-500'>{testimonial.title}</p>
+              </div>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+
+        <style jsx global>{`
+          .custom-swiper .swiper-button-prev,
+          .custom-swiper .swiper-button-next {
+            width: 40px;
+            height: 40px;
+            background-color: white;
+            border-radius: 50%;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+          }
+
+          .custom-swiper .swiper-button-prev:after,
+          .custom-swiper .swiper-button-next:after {
+            font-size: 20px !important;
+            font-weight: 800;
+            color: #000; /* Adjust the color as needed */
+          }
+
+          .custom-swiper .swiper-button-prev,
+          .custom-swiper .swiper-button-next {
+            top: 50%;
+            transform: translateY(-50%);
+            color: black; /* Adjust to match your theme */
+          }
+        `}</style>
+      </section>
+
+      <section className='max-w-[1440px] mx-auto bg-[#14182B] text-white w-full min-h-[300px] md:min-h-[400px] xl:min-h-[500px] flex items-center justify-center sm:mt-16'>
+        <div className='text-center flex flex-col gap-8'>
+          <div className='flex flex-col gap-2'>
+            <h2 className='text-4xl font-bold before:bg-orange-200 text-white'>Get Started</h2>
+            <p className='text-lg text-white'>Start learning with us</p>
+          </div>
+
+          <Link href='/register' className='bg-white text-[#14182B] font-bold text-lg px-8 py-4 rounded-md '>
+            Join Now
+          </Link>
         </div>
       </section>
 

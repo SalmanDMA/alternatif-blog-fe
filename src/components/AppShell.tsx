@@ -13,6 +13,7 @@ import handleToggle from '@/utils/general';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
+import Footer from './Footer';
 
 const AppShell = ({ children }: { children: React.ReactNode }) => {
   const cookies = useCookies();
@@ -64,6 +65,7 @@ const AppShell = ({ children }: { children: React.ReactNode }) => {
         />
       )}
       {children}
+      {!pathName.startsWith('/auth') && <Footer />}
       <ToastContainer
         position='top-right'
         autoClose={3000}
